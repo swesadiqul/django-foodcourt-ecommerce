@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('food_app.urls')),
     path('', include('users_app.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls'))
 ]
 
 if settings.DEBUG:
