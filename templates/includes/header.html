@@ -37,7 +37,7 @@
             <div class="row d-flex align-items-center">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-3">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="{% url 'home' %}">
                             <img src="{% static 'assets/images/logo/logo.png' %}" alt="logo" /></a>
                     </div>
                 </div>
@@ -45,21 +45,17 @@
                     <nav id="mobile-menu">
                         <ul class="main-menu">
                             <li>
-                                <a href="#">Home</a>
+                                <a href="{% url 'home' %}">Home</a>
                             </li>
-                            <li><a href="about.html">about us</a></li>
-                            <li><a href="menu.html">menu</a></li>
+                            <li><a href="javascript: void(0)">about us</a></li>
+                            <li><a href="javascript: void(0)">menu</a></li>
                             <li>
-                                <a href="#">blog <span><i class="fas fa-angle-down"></i></span></a>
-                                <ul class="submenu">
-                                    <li><a href="blog.html">blog</a></li>
-                                    <li><a href="blog-single.html">single blog</a></li>
-                                </ul>
+                                <a href="javascript: void(0)">Blog</a>
                             </li>
                             <li>
-                                <a href="{% url 'foods' %}">Foods</a>
+                                <a href="{% url 'filter-items' %}">Foods</a>
                             </li>
-                            <li><a href="contact.html">contact us</a></li>
+                            <li><a href="javascript: void(0)">contact us</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -71,10 +67,12 @@
                         <span>
                             <a href="profile.html"><i class="fas fa-user"></i></a>
                         </span>
-                        <span>
-                            <a href="shopping-cart.html"><i class="fas fa-shopping-basket"></i></a>
+                        <span class='position-relative'>
+                            <a href="{% url 'cart' %}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ cart_items_count }}</a>
+                            <i class="fas fa-shopping-basket"></i>
                         </span>
-                        <a href="/login/" class="btn">login</a>
+                        <a href="{% url 'login' %}" class="btn">login</a>
                     </div>
                 </div>
             </div>

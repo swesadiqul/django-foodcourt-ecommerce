@@ -1,0 +1,27 @@
+{% for product in products %}
+<div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".2s">
+    <div class="single-dishes">
+        <div class="dish-img">
+            <img src="{{ product.image.url }}" style="width: inherit;" alt="">
+        </div>
+        <div class="dish-content">
+            <h5><a href="{% url 'food_details' product.id %}"> {{ food.name }}
+                </a></h5>
+            <p>{{ product.short_description }}</p>
+            <span class="price">price :$ {{ product.regular_price }}</span>
+
+        </div>
+        <span class="badge">hot</span>
+        <div class="cart-opt">
+            <span>
+                <a href="#"><i class="fas fa-heart"></i></a>
+            </span>
+            <span>
+                <a href="shopping-cart.html"><i class="fas fa-shopping-basket"></i></a>
+            </span>
+        </div>
+    </div>
+</div>
+{% empty %}
+<h4>There is no available foods here.</h4>
+{% endfor %}
