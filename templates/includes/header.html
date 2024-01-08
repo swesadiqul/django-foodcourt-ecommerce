@@ -68,10 +68,14 @@
                             <a href="profile.html"><i class="fas fa-user"></i></a>
                         </span>
                         <span class='position-relative'>
+                            {% if request.user.is_authenticated %}
                             <a href="{% url 'cart' %}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {{ cart_items_count }}</a>
+                                {{ cart_items_count }}
+                            </a>
+                            {% endif %}
                             <i class="fas fa-shopping-basket"></i>
                         </span>
+                        
                         <a href="{% url 'login' %}" class="btn">login</a>
                     </div>
                 </div>

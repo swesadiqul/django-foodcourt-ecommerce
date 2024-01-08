@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Product
 from .forms import *
-# from .forms import AddToCartForm
+from django.contrib.auth.decorators import login_required
+
 
 
 # Create your views here.
@@ -29,6 +30,7 @@ def filter_items(request):
     return render(request, 'food-page.html', {'items': items})
 
 
+@login_required(login_url='login')
 def add_to_cart(request, product_id):
     product = Product.objects.get(pk=product_id)
     cart, created = Cart.objects.get_or_create(user=request.user)
@@ -41,7 +43,31 @@ def add_to_cart(request, product_id):
     return redirect('filter-items')
 
 
+@login_required(login_url='login')
 def cart(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
     cart_items = CartItem.objects.filter(cart=cart)
     return render(request, 'cart.html', {'cart_items': cart_items})
+
+
+
+# @require_POST
+# def update_quantity(request):
+#     cart_item_id = request.POST.get('cart_item_id')
+#     action = request.POST.get('action')
+
+#     cart_item = get_object_or_404(CartItem, id=cart_item_id)
+
+#     if action == 'increment':
+#         cart_item.quantity += 1
+#     elif action == 'decrement':
+#         if cart_item.quantity > 1:
+#             cart_item.quantity -= 1
+
+#     cart_item.save()
+
+#     data = {
+#         'new_quantity': cart_item.quantity,
+#     }
+
+#     return JsonResponse(data)

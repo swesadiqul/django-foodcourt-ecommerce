@@ -36,9 +36,5 @@ def register(request):
 
 
 
-
-
-
-
 def signin(request):
     return render(request, 'login.html')

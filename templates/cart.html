@@ -92,7 +92,7 @@
                             <!--data-th="Price"-->
                             <td>
                                 <!-- data-th="Quantity"-->
-                                <input type="number" class="form-control text-center" value="{{ cart.quantity }}">
+                                <input type="number" class="form-control text-center" min='1' name="quantity" id="quantity-input" value="{{ cart.quantity }}" data-cart-item-id="{{ cart.id }}">
                             </td>
                             <td class="text-center">{{ cart.quantity|mul:cart.product.regular_price }}</td>
                             <!--data-th="Subtotal"  -->
@@ -107,7 +107,6 @@
                     </tbody>
                 </table>
             </div>
-
             <!-- lower table -->
 
             <div class="row margin-top-60">
@@ -134,3 +133,38 @@
     </div>
 </div>
 {% endblock content %}
+
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('#quantity-input').on('change', function () {
+        var newQuantity = $(this).val();
+        var cartItemId = $(this).data('cart-item-id');
+
+        console.log(cartItemId);
+        console.log(newQuantity);
+
+        $.ajax({
+            type: 'POST',
+            url: '/update_quantity/',
+            data: {
+                'cart_item_id': cartItemId,
+                'action': 'update',
+                'new_quantity': newQuantity,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('#quantity-input').val(data.new_quantity);
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    });
+});
+</script>
+{% endblock js %}
+
